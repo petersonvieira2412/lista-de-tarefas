@@ -1,0 +1,28 @@
+.add-task-button {
+    background-color: chartreuse;
+    height: 40px;
+    padding: 0 10px;
+    border-radius: 5px;
+    width: 100%;
+    font-size: 16px;
+    color: #444;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    transition: all 0.3s ease;
+}
+
+.remove-task-button, .details-task-button {
+    background-color: #444;
+    border: none;
+    font-size: 16px;
+    color: chartreuse;
+    z-index: 99;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.add-task-button:hover {
+    background-color: #444444;
+    color: chartreuse;
+}
