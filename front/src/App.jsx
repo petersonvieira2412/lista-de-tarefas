@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { v4 as uuidv4 } from 'uuid';
+import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 import Header from "./components/header/Header";
@@ -7,36 +6,56 @@ import Tasks from "./components/tasks/Tasks";
 import AddTask from "./components/tasks/AddTask";
 import TaskDetails from "./components/tasks/TaskDetails";
 
+import { taskService } from "./services/taskService";
 import './css/App.css';
 
 const App = () => {
-    const [tasks, setTasks] = useState([{
-        id: 1, title: 'Estudar Programação', completed: false
-    }, {
-        id: 2, title: 'Ler Livros', completed: true
-    }]);
+    const [tasks, setTasks] = useState([]);
 
-    const handleTaskClick = (taskId) => {
-        const clickedTask = tasks.map((task) => {
-            if (task.id === taskId) return { ...task, completed: !task.completed }
-            return task;
-        });
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const tasksData = await taskService.fetchTasks();
+                setTasks(tasksData);
+            } catch (error) {
+                console.error('Erro ao buscar as tasks:', error);
+            }
+        }
 
-        setTasks(clickedTask);
+        fetchData();
+    }, []);
+
+    async function handleTaskUpdate (taskId) {
+        try {
+            const clickedTask = tasks.map((task) => {
+                if (task._id === taskId) return { ...task, completed: !task.completed }
+                return task;
+            });
+            await taskService.updateTask(clickedTask);
+
+            setTasks(clickedTask);
+        } catch (error) {
+            console.error('Erro ao atualizar a task:', error);
+        }
     }
 
-    const handleTaskRemove = (taskId) => {
-        const removeTask = tasks.filter((task) => task.id !== taskId);
-
-        setTasks(removeTask);
+    async function handleTaskRemove (taskId) {
+        try {
+            await taskService.removeTask(taskId);
+            const updatedTasks = tasks.filter((task) => task._id !== taskId);
+            setTasks(updatedTasks);
+        } catch (error) {
+            console.error('Erro ao remover a task:', error);
+        }
     }
 
-    const handleTaskAddition = (taskTitle) => {
-        const newTask = [...tasks, {
-            title: taskTitle, id: uuidv4(), completed: false
-        }]
-
-        setTasks(newTask);
+    async function handleTaskAddition (taskTitle) {
+        try {
+            const newTask = await taskService.createTask(taskTitle);
+            setTasks([...tasks, newTask]);
+        } catch (error) {
+            console.error('Erro ao adicionar a task:', error);
+        }
     }
 
     return (
@@ -53,7 +72,7 @@ const App = () => {
                                 />
                                 <Tasks
                                     tasks={tasks}
-                                    handleTaskClick={handleTaskClick}
+                                    handleTaskClick={handleTaskUpdate}
                                     handleTaskRemove={handleTaskRemove}
                                 />
                             </>
