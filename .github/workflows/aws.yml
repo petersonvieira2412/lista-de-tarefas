@@ -25,4 +25,8 @@ jobs:
 
       - name: Deploy to AWS
         run: |
-          # Add your deployment script here
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set region ${{ secrets.AWS_REGION }}
+          aws s3 sync front/build s3://your-bucket-name
+          aws ec2 restart-instance --instance-id your-instance-id
