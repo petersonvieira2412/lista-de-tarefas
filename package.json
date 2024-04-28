@@ -1,0 +1,11 @@
+{
+  "name": "lista-de-tarefas",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "start": "cd front && react-scripts start",
+    "build": "cd front && react-scripts build",
+    "test": "cd front && react-scripts test",
+    "eject": "cd front && react-scripts eject"
+  }
+}
