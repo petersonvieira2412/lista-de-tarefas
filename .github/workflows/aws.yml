@@ -16,7 +16,7 @@ jobs:
       env:
         SSH_PRIVATE_KEY: ${{secrets.AWS_SSH_KEY}}
         SOURCE: "./"
-        REMOTE_HOST: ${{secrets.AWS_SSH_KEY}}
+        REMOTE_HOST: ${{secrets.AWS_HOST}}
         REMOTE_USER: ${{secrets.AWS_USER}}
         TARGET: "/home/${{ secrets.AWS_USER }}"
         EXCLUDE: "/dist/, /node_modules/"
