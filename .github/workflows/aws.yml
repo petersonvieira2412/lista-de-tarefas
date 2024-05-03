@@ -14,7 +14,7 @@ jobs:
       - name: SSH to EC2 and copy files
         uses: easingthemes/ssh-deploy@v2
         with:
-          ssh-private-key: |
+          SSH_PRIVATE_KEY: |
             -----BEGIN RSA PRIVATE KEY-----
             MIIEowIBAAKCAQEAkCiUP98RifTv7jnUmgcFHTAuPHxMhYhIJHhjXr7+WKoBYZTZ
             2PkG/UwNqZmG8VUkyspCkeyW6e8glqHB08NMtpVk89a6twndNuRzk6xCV2Wz8kwY
@@ -42,8 +42,8 @@ jobs:
             ybQGcp/RfBrfGTVKg718X4NURRsSAqjwGVfu8gFAX5d2/dEphphYSOg67791dPhO
             FHu67iZoGDUFAinFjgGSP4Lpm/sqM2owmjgcBWsSL7E0Aqdu1dWK
             -----END RSA PRIVATE KEY-----
-          source: "./"
-          remote-host: ec2-3-21-167-192.us-east-2.compute.amazonaws.com
-          remote-user: uc2-user
-          target: "/home/uc2-user"
-          exclude: "/dist/,/node_modules/"
+          SOURCE: "./"
+          REMOTE_HOST: ec2-3-21-167-192.us-east-2.compute.amazonaws.com
+          REMOTE_USER: uc2-user
+          TARGET: "/home/uc2-user"
+          EXCLUDE: "/dist/,/node_modules/"
