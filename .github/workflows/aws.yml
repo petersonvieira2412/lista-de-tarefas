@@ -10,7 +10,11 @@ jobs:
     steps:
       - name: Checkout the files
         uses: actions/checkout@v3
-
+      - name: Print Secret Values
+        run: |
+          echo "AWS_SSH_KEY: ${{ secrets.AWS_SSH_KEY }}"
+          echo "AWS_HOST: ${{ secrets.AWS_HOST }}"
+          echo "AWS_USER: ${{ secrets.AWS_USER }}"
       - name: SSH to EC2 and copy files
         uses: easingthemes/ssh-deploy@v2
         with:
