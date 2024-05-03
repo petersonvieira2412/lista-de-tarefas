@@ -11,12 +11,12 @@ jobs:
       - name: Checkout the files
         uses: actions/checkout@v3
 
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v2
+      - name: SSH to EC2 and copy files
+        uses: easingthemes/ssh-deploy@v2
         with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-2
-
-      - name: Copy files to EC2 instance
-        run: aws s3 sync ./ s3://lista-de-tarefas-pvs
+          ssh-private-key: ${{ secrets.EC2_SSH_KEY }}
+          source: "./"
+          remote-host: ${{ secrets.EC2_HOST }}
+          remote-user: ${{ secrets.EC2_USER }}
+          target: "/home/${{ secrets.EC2_USER }}"
+          exclude: "/dist/,/node_modules/"
