@@ -8,15 +8,15 @@ jobs:
     name: Deploy to EC2
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout the files
-      uses: actions/checkout@v3
+      - name: Checkout the files
+        uses: actions/checkout@v3
 
-    - name: Copy files with SSH
-      uses: easingthemes/ssh-deploy@main
-      env:
-        SSH_PRIVATE_KEY: ${{secrets.AWS_SSH_KEY}}
-        SOURCE: "./"
-        REMOTE_HOST: ${{secrets.AWS_HOST}}
-        REMOTE_USER: ${{secrets.AWS_USER}}
-        TARGET: "/home/${{ secrets.AWS_USER }}"
-        EXCLUDE: "/dist/,/node_modules/"
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: your-aws-region
+
+      - name: Copy files to EC2 instance
+        run: aws s3 sync ./ s3://lista-de-tarefas-pvs
