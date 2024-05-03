@@ -14,9 +14,36 @@ jobs:
       - name: SSH to EC2 and copy files
         uses: easingthemes/ssh-deploy@v2
         with:
-          ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
+          ssh-private-key: |
+            -----BEGIN RSA PRIVATE KEY-----
+            MIIEowIBAAKCAQEAkCiUP98RifTv7jnUmgcFHTAuPHxMhYhIJHhjXr7+WKoBYZTZ
+            2PkG/UwNqZmG8VUkyspCkeyW6e8glqHB08NMtpVk89a6twndNuRzk6xCV2Wz8kwY
+            oUiaVno3vOGNivsNzmZYPumbm4qdykmxa2YZONwsCcrNWZD9VckPgz+y/YepysSx
+            oY1UTRl8Jkg7X0DU5m+q2UgiXbQEE01zo9jTr3SYgU1mzxZJ1ajHIjCryOZr3IR1
+            FjzPYwZIqL1k0rjmIAYxmvcCGLjXQ9ZqFWD1x2ul3+TPLRwR4CAFuZ+B9YBxoA1f
+            xYMhqGOa0366ewuUauQPw8pU7ygL3522nAAkaQIDAQABAoIBAETv4tUYa165jvMx
+            HIX7zWpD3Bh4qG9C2Jz4JSzt0Nu9kKOFdxfXHoyKjg4IqQtHWCzRxDvcE98Sx1bB
+            S9tkjY7SqlAg43EcenkBjnOT8LWyoPbBhRW7jnLER1s/0Vwg6l1Fe/W56PvcsdBG
+            pV1imbUjNLwKC2FFgKBBYfW1xHaQbcA4dStkgRm71mSvGVPPv0MsNlGOvP33cZk3
+            GPr4Ki19aBNJq9Z72UZDR+wVAkZznAKlbgS6s4b8a0TCMo7e5LMDsvcuhXk60ig4
+            rnGMEE60unOxB9cfctmwauiNl8uStOqldJYrvmjLz5N0z/31ybWtCtmxwXJW9w3U
+            XQFZ2AECgYEAxpFlGvix/UpOSB2GUkn3UDXVZR3RgAZyXNjiyJun2aFzEo2P01TN
+            rT1mvsXeG/hX0oOBv8v1mtXpCEJ72L0zyQbo9Xj96ZzlchUGnUbh1eDYCRBccIke
+            ksku8fC1iyoT61e/ZTsM/7l/gHV/ZQ4w72kzmqUyfUVKfvrlBux4C0ECgYEAudqJ
+            I2uDo5zorJBf56/kK+QZ2g6s2hwD3tVy2e9RLxIor7yB41TXh4C6awp/3HjYSo1w
+            v5jzdcEqCpNunC7+ZxbCKBR/zgWb8+CqTSGp8efoZFBnHIo/vjTPxxdcH7FcxY+M
+            CF1vIraCqpiDX5jJMwte9ukZ2+CwWdmuspRjlykCgYA25R80c6iRQ6ecnDz0Juqu
+            TBOwnqu6Xw3iyTr5Br9ClTXA3U3zuLAbwqvS9dTPmrp8wkpuga5mndiMpgSjCLt2
+            SejBZC+eE/gCr/liJaRtgnl3GATWP7IqFmBaFpe532oeV+Xb0JVpZRjwpIsRnvi8
+            VzMi/6STqUJNFIOYhGszgQKBgHrS6NSmpf2HoeEBHNBx1noHKeqIzkTqRMiMCXXr
+            iZxxBMB29OP22uUq9oftDWj32AEVDlEg1Kyadp08p9nB2NDqIm/4dCoEXPdEH2gP
+            +k7rMxKwbCRZXRznq/ToBDLRtPy/DA0vKlYnhZ0WY6PWxgjc1+qXTEaabBFFIgXU
+            uShZAoGBAIGfu1/aTz+NC/gomizF/qALOiQFhkvHx0+1MlCOTOIgMpWvPTsh+QJV
+            ybQGcp/RfBrfGTVKg718X4NURRsSAqjwGVfu8gFAX5d2/dEphphYSOg67791dPhO
+            FHu67iZoGDUFAinFjgGSP4Lpm/sqM2owmjgcBWsSL7E0Aqdu1dWK
+            -----END RSA PRIVATE KEY-----
           source: "./"
-          remote-host: ${{ secrets.AWS_HOST }}
-          remote-user: ${{ secrets.AWS_USER }}
-          target: "/home/${{ secrets.AWS_USER }}"
+          remote-host: ec2-3-21-167-192.us-east-2.compute.amazonaws.com
+          remote-user: uc2-user
+          target: "/home/uc2-user"
           exclude: "/dist/,/node_modules/"
