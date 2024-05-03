@@ -14,9 +14,9 @@ jobs:
       - name: SSH to EC2 and copy files
         uses: easingthemes/ssh-deploy@v2
         with:
-          ssh-private-key: ${{ secrets.AWS_SSH_KEY }}
-          source: "./"
-          remote-host: ${{ secrets.AWS_HOST }}
-          remote-user: ${{ secrets.AWS_USER }}
-          target: "/home/${{ secrets.AWS_USER }}"
-          exclude: "/dist/,/node_modules/"
+          SSH_PRIVATE_KEY: ${{ secrets.AWS_SSH_KEY }}
+          SOURCE: "./"
+          REMOTE_HOST: ${{ secrets.AWS_HOST }}
+          REMOTE_USER: ${{ secrets.AWS_USER }}
+          TARGET: "/home/${{ secrets.AWS_USER }}"
+          EXCLUDE: "/dist/,/node_modules/"
