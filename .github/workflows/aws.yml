@@ -1,25 +1,22 @@
-name: Deploy to S3
-
+name: Push-to-EC2
 on:
   push:
     branches:
       - main
-
 jobs:
   deploy:
+    name: Deploy to EC2
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+    - name: Checkout the files
+      uses: actions/checkout@v3
 
-      - name: Install AWS CLI
-        run: |
-          sudo apt-get install -y awscli
-
-      - name: Deploy to S3
-        run: |
-          aws s3 sync ./ s3://lista-de-tarefas-pvs
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+    - name: Copy files with SSH
+      uses: easingthemes/ssh-deploy@main
+      env:
+        SSH_PRIVATE_KEY: ${{secrets.AWS_SSH_KEY}}
+        SOURCE: "./"
+        REMOTE_HOST: ${{secrets.AWS_HOST}}
+        REMOTE_USER: ${{secrets.AWS_USER}}
+        TARGET: "/home/${{ secrets.AWS_USER }}"
+        EXCLUDE: "/dist/,/node_modules/"
